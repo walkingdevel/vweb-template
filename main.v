@@ -1,27 +1,28 @@
 module main
 
 import vweb
-import sqlite
+import orm
+import db.sqlite
 import users { create_users_table }
 
 struct App {
 	vweb.Context
 pub mut:
-	database sqlite.DB
+	db orm.Connection
 }
 
 fn main() {
 	app := &App{
-		database: sqlite.connect('concept.sqlite') or { panic(err) }
+		db: sqlite.connect('concept.sqlite') or { panic(err) }
 	}
 
-	create_tables(app.database)
+	create_tables(app.db)
 
 	vweb.run_at(app, vweb.RunParams{
 		port: 8080
 	}) or { panic(err) }
 }
 
-fn create_tables(database sqlite.DB) {
+fn create_tables(database orm.Connection) {
 	create_users_table(database)
 }

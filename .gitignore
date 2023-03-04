@@ -1,5 +1,8 @@
 .DS_Store
 
 .vscode
+.idea
 
 vweb-template
+
+concept.sqlite

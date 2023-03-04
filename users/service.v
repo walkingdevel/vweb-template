@@ -1,19 +1,19 @@
 module users
 
-import sqlite
+import orm
 
 [noinit]
 pub struct UserService {
-	database sqlite.DB
+	database orm.Connection
 }
 
-pub fn new_user_service(database sqlite.DB) UserService {
+pub fn new_user_service(database orm.Connection) UserService {
 	return UserService{
 		database: database
 	}
 }
 
-pub fn create_users_table(database sqlite.DB) {
+pub fn create_users_table(database orm.Connection) {
 	sql database {
 		create table User
 	}
